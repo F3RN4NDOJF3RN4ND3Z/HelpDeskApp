@@ -1,4 +1,4 @@
-##What is this app?
+# What is this app?
 A responsive web application that provides help desk/ticketing functionality.
 The application should require authentication to access it with two roles (Admin and Standard)
 existing for users. 
@@ -10,11 +10,11 @@ existing for users.
 and when it was submitted. There will also be a status field to keep track of the current status of the ticket. 
 * Each ticket can have comments added to it and comments should track the user who added the comment and when it was added.
 * The main screen for a Standard User should be a dashboard that shows a graph that indicates the number of tickets created across all users within the organization by day. Below that should be a list of the most recent tickets created for the logged in user.
-##Repository Structure
+# Repository Structure
 * docs: Contains the documentation and architecture diagrams for this application.
 * frontend: Contains the front-end code.
 * backend: Contains the back-end code.
 
-##Application Architecture
+# Application Architecture
 
-##Installation
+# Installation
