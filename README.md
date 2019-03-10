@@ -13,17 +13,24 @@ and when it was submitted. There will also be a status field to keep track of th
 # Repository Structure
 * docs: Contains the documentation and architecture diagrams for this application.
 * frontend: Contains the front-end code.
-* backend: Contains the back-end code.
+* backend: Contains the back-end code. Devided in three isolated domains Following a DDD. Each of wich will in turn have sub-packages called boundary, control, and entity. The structure follows the Boundary-Control-Entity (BCE)/Entity-Control-Boundary (ECB) pattern.
+    * users 
+    * tickets
+    * organizations
 
 # Application Architecture
-Java EE 8 and Microprofile 2.0.1 dependencies
+The projects is created as standard Java EE projects, which are Skinny WARs, that will be deployed using the Payara Micro server. 
+The projects where created usign Maven with a webapp archretype.
+Java EE 8 and Payara Micro
 * Mockito and JUnit dependencies for efficient testing
 * beans.xml with bean-discovery-mode="all" for ready to go dependency injection
 * persistence.xml configured for JTA persistence unit
-* microprofile-config.properties for internal configurations
 * JAX-RS 
-* Dockerfile for Payara 5.183 deployment at the root path level a script for a convenient
-
+* Docker Deployable containers
+* API GateWay for virtualizing services and have an orchestrated architecture
 
 # Installation
-
+run inside each folder of the backend.
+``` mvn clean install ```
+Download Payara Micro. Run de payara server inside each folder replace xxx with the version of your jar and make sure that the target is pointing to the correct war do this for each of the components. Be careful to point to different ports.
+``` java -jar payara-micro-xxx.jar --deploy users/target/users.war --autoBindHttp ```
