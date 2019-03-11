@@ -33,6 +33,30 @@
         <version>1.1</version>
         <scope>provided</scope>
     </dependency>
+    <!-- Test Dependencies -->
+    <dependency>
+      <groupId>fish.payara.extras</groupId>
+      <artifactId>payara-embedded-all</artifactId>
+      <version>5.0.0.Alpha3</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>3.0.6</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>fish.payara.arquillian</groupId>
+      <artifactId>arquillian-payara-server-4-embedded</artifactId>
+      <version>1.0.Beta2</version>
+      <scope>test</scope>
+    </dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -44,6 +68,11 @@
         <artifactId>swagger-annotations</artifactId>
         <version>1.5.16</version>
     </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <version>1.4.195</version>
+    </dependency>
   </dependencies>
   <build>
     <finalName>tickets</finalName>
@@ -51,7 +80,7 @@
         <plugin>
           <groupId>com.github.kongchen</groupId>
           <artifactId>swagger-maven-plugin</artifactId>
-          <version>3.1.0</version>
+          <version>3.1.5</version>
           <configuration>
             <apiSources>
               <apiSource>
@@ -79,6 +108,15 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>2.20.1</version>
+          <configuration>
+            <systemProperties>
+                <arquillian.launch>glassfish-embedded</arquillian.launch>
+            </systemProperties>
+          </configuration>
+        </plugin>
     </plugins>
   </build>
   <properties>
@@ -88,4 +126,15 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
+  <dependencyManagement>
+    <dependencies>          
+      <dependency>
+          <groupId>org.jboss.arquillian</groupId>
+          <artifactId>arquillian-bom</artifactId>
+          <version>1.1.15.Final</version>
+          <scope>import</scope>
+          <type>pom</type>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 </project>

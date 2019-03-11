@@ -38,7 +38,7 @@ public class OrganizationResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response get(@PathParam("id") Long id){
-        return Response.ok("organization work").build();
+        return Response.ok(service.get(id)).build();
     }
     @GET
     @ApiOperation(value = "Get all organizations")

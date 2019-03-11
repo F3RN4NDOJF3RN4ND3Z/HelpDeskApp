@@ -4,17 +4,25 @@ import java.util.Date;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlAccessType;
 
 /**
  * User
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Entity
+@Table(name = "users")
 public class User {
-
-    Long id;
-    String name;
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    @NotNull
+    private String name;
     Long role;
     Date createdDate;
     public User(){}

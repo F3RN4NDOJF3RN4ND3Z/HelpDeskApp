@@ -21,7 +21,7 @@ public class OrganizationService {
     @PersistenceContext EntityManager em;
 
     public Set<Organization> getAll(){
-        List<Organization> list=em.createQuery("FROM Organizations o",Organization.class).getResultList();
+        List<Organization> list=em.createQuery("FROM Organization o",Organization.class).getResultList();
         return new LinkedHashSet(list);
         
     }
@@ -45,7 +45,7 @@ public class OrganizationService {
     }
 
     public void delete(Long id) {
-        Query query = em.createQuery("DELETE FROM User u WHERE u.id = :id");
+        Query query = em.createQuery("DELETE FROM Organization u WHERE u.id = :id");
         query.setParameter("id", id)
                 .executeUpdate();
     }

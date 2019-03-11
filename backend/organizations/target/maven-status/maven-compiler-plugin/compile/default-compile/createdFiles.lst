@@ -1,5 +1,5 @@
-com\fernando\apps\helpdeskng\organizations\boundary\OrganizationResource.class
-com\fernando\apps\helpdeskng\util\ErrorMessages.class
-com\fernando\apps\helpdeskng\organizations\entity\Organization.class
-com\fernando\apps\helpdeskng\organizations\boundary\OrganizationService.class
-com\fernando\apps\helpdeskng\organizations\JaxrsActivator.class
+com/fernando/apps/helpdeskng/organizations/JaxrsActivator.class
+com/fernando/apps/helpdeskng/organizations/boundary/OrganizationService.class
+com/fernando/apps/helpdeskng/organizations/entity/Organization.class
+com/fernando/apps/helpdeskng/util/ErrorMessages.class
+com/fernando/apps/helpdeskng/organizations/boundary/OrganizationResource.class

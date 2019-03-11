@@ -1,7 +1,18 @@
 package com.fernando.apps.helpdeskng.tickets.entity;
 
 import java.util.Date;
+import java.util.List;
 
+import javax.json.bind.annotation.JsonbTransient;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -9,26 +20,38 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Ticket
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.FIELD)
+@Entity
+@Table(name = "tickets")
 public class Ticket {
 
-    Long id;
-    String description;
-    Long category;
-    Long organization;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String description;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name ="categoryId")
+    private Category category;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="organizationId")
+    private Organization organization;
     Long status;
-    Long createdBy;
+    @JsonbTransient
+    @OneToMany(mappedBy = "ticketId")
+    private List <Comment> comments;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="userId")
+    User createdBy;
     Date createdDate;
     Date updatedDate;
 
     public Ticket (){}
 
-    public Ticket(Long id, String description, Long category, Long organization , Long createdBy){
+    public Ticket(Long id, String description, Category category, Organization organization , User createdBy){
         this.id=id;
         this.description=description;
         this.category=category;
         this.organization=organization;
+        this.createdBy=createdBy;
         this.createdDate=new Date();
         //this.status="";
 
@@ -65,28 +88,28 @@ public class Ticket {
     /**
      * @return the catagory
      */
-    public Long getCategory() {
+    public Category getCategory() {
         return category;
     }
 
     /**
      * @param catagory the catagory to set
      */
-    public void setCatagory(Long category) {
+    public void setCatagory(Category category) {
         this.category = category;
     }
 
     /**
      * @return the organization
      */
-    public Long getOrganization() {
+    public Organization getOrganization() {
         return organization;
     }
 
     /**
      * @param organization the organization to set
      */
-    public void setOrganization(Long organization) {
+    public void setOrganization(Organization organization) {
         this.organization = organization;
     }
 
@@ -107,14 +130,14 @@ public class Ticket {
     /**
      * @return the createdBy
      */
-    public Long getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
     /**
      * @param createdBy the createdBy to set
      */
-    public void setCreatedBy(Long createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 

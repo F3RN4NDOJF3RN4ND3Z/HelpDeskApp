@@ -1,0 +1,3 @@
+main/java/com/fernando/apps/security/boundary/TokenIssuer.class
+main/java/com/fernando/apps/security/boundary/JWTRequired.class
+main/java/com/fernando/apps/security/boundary/JWTFilter.class
