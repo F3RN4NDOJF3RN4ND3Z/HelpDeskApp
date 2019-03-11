@@ -1,0 +1,23 @@
+<div>
+  <h1>Dashboard</h1>
+  <hr/>
+  <h2>Tickets</h2>
+  <hr/>
+  <ul>
+    <li *ngFor="let ticket of tickets" (click)=openTicket(ticket)>
+      {{ ticket.id }} {{ ticket.description}}
+    </li>
+  </ul>
+  <div>
+    <h3>Metrics</h3>
+    <hr/>
+    <div>
+      <h4>Opened Tickets</h4>
+      <h3>{{ openedTickets }}</h3>
+    </div>
+    <div>
+        <h4>Closed Tickets</h4>
+        <h3>{{ closedTicket }}</h3>
+    </div>
+  </div>
+</div>

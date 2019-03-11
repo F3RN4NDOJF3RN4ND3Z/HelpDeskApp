@@ -1,0 +1,19 @@
+nav {
+    flex: 0 0 18em;
+    /* overflow-y: auto; */
+    overflow-y: hidden;
+    background-color: #323532;
+    padding: 25px;    
+}
+nav > ul > li {
+    padding: 5px;    
+    list-style: none;
+}
+nav > ul > li > a {
+    font-size: 16px;
+    font-weight: bold;
+    color: #dfdfdf;
+    text-transform: uppercase;
+    text-shadow: 2em;
+    letter-spacing: 2px;
+}

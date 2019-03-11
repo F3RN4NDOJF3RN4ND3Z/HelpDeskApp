@@ -1,53 +1,128 @@
 package com.fernando.apps.helpdeskng.users.boundary;
 
+import com.fernando.apps.helpdeskng.security.boundary.TokenIssuer;
+import com.fernando.apps.helpdeskng.users.entity.Credential;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 import com.fernando.apps.helpdeskng.users.entity.User;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponses;
 import io.swagger.annotations.ApiResponse;
+import java.net.URI;
+import java.util.Optional;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
 
 @Path("users")
 @Api(value = "/users")
 public class UserResource {
 
+    @Inject
+    private UserService service;
+    
+    @Inject
+    private TokenIssuer issuer;
+
+    @GET
+    @ApiOperation(value = "Get all users")
+    public Response getAll(@QueryParam("names") String names) {
+        if (names != null) {
+            return Response.ok(service.getNames()).build();
+        }
+        return Response.ok(service.getAll()).build();
+    }
+
     @GET
     @Path("{id}")
-    @Produces({MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML})
-    public Response get(@PathParam("id") Long id) {
-
-        return Response.ok("user works").build();
-
-    }
-
-    @GET
-    @ApiOperation(value = "Get all users",
-    notes = "This can only be done by the logged in user.")
-    @ApiResponses(value = {
-        @ApiResponse(code = 400, message = "Invalid input"),
-        @ApiResponse(code = 404, message = "User not found") 
+    @ApiOperation(value = "Get user by user id",
+            response = User.class)
+    @ApiResponses({
+        @ApiResponse(code = 400, message = "Invalid input")
+        ,
+      @ApiResponse(code = 404, message = "User not found")
     })
-    public Response getAll(){
-        return Response.ok("get all works").build();
+    public Response get(@ApiParam(value = "ID of user that needs to be fetched", required = true)
+            @PathParam("id") Long id) {
+        System.out.println("request for " + id);
+        final Optional<User> userFound = service.get(id);
+        if (userFound.isPresent()) {
+            return Response.ok(userFound.get()).build();
+        }
+        return Response.status(Response.Status.NOT_FOUND).build();
     }
-
 
     @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public Response add(User user){
-        return Response.ok("add works").build();
+    @ApiOperation(value = "Create user",
+            notes = "This can only be done by the logged in user.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid user input")
+        ,
+        @ApiResponse(code = 201, message = "User added")})
+    public Response add(@ApiParam(value = "User that needs to be added", required = true) User newUser, @Context UriInfo uriInfo) {
+        service.add(newUser);
+        return Response.created(getLocation(uriInfo, newUser.getId())).build();
+    }
+
+    @Path("/authenticate")
+    @POST
+    @ApiOperation(value = "Authenticate user",
+            notes = "Validate and issue token to user.")
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid credentials input")
+        ,
+        @ApiResponse(code = 200, message = "Token issued")})
+    public Response authenticate(@ApiParam(value = "User that needs to be authenticated", required = true) Credential creds) {
+        User validUser = service.isValid(creds.getUsername(), creds.getPassword());
+        
+        if (validUser != null) {
+            String token = issuer.issueToken(creds.getUsername());
+            //Set token and user id as part of response
+            JsonObject json = Json.createObjectBuilder()
+                    .add("id",    validUser.getId())
+                    .add("token", token)
+                    .build();
+            
+            return Response.ok(json).build();
+        }
+        return Response.status(Response.Status.UNAUTHORIZED).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    @ApiOperation(value = "Update user", response = User.class)
+    @ApiResponses(value = {
+        @ApiResponse(code = 400, message = "Invalid user input")
+        ,
+      @ApiResponse(code = 404, message = "User not found")
+        ,
+      @ApiResponse(code = 200, message = "User updated")})
+    public Response update(@ApiParam(value = "ID of user that needs to be updated",
+            required = true)
+            @PathParam("id") Long id,
+            @ApiParam(value = "User that needs to be updated", required = true) User updated) {
+        updated.setId(id);
+        boolean done = service.update(updated);
+
+        return done
+                ? Response.ok(updated).build()
+                : Response.status(Response.Status.NOT_FOUND).build();
     }
 
     @DELETE
     @Path("{id}")
-    public Response update(@PathParam("id") Long id){
-        return Response.ok("update works").build();
+    @ApiOperation(value = "Remove the user")
+    public Response remove(@ApiParam(value = "ID of user that needs to be removed",
+            required = true)
+            @PathParam("id") Long id) {
+        service.remove(id);
+        return Response.ok().build();
     }
 
-    public Response delete(Long id){
-        return Response.noContent().build();
+    URI getLocation(UriInfo uriInfo, Long id) {
+        return uriInfo.getAbsolutePathBuilder().path("" + id).build();
     }
-
 }

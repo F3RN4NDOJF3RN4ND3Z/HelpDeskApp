@@ -1,0 +1,10 @@
+com\fernando\apps\helpdeskng\users\boundary\CorsFilter.class
+com\fernando\apps\helpdeskng\util\ErrorMessages.class
+com\fernando\apps\helpdeskng\users\JaxrsActivator.class
+com\fernando\apps\helpdeskng\users\boundary\UserResource.class
+com\fernando\apps\helpdeskng\users\entity\ApplicationRoles.class
+com\fernando\apps\helpdeskng\users\entity\Organization.class
+com\fernando\apps\helpdeskng\users\boundary\UserService.class
+com\fernando\apps\helpdeskng\users\entity\User.class
+com\fernando\apps\helpdeskng\users\boundary\SeedData.class
+com\fernando\apps\helpdeskng\users\entity\Credential.class

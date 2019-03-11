@@ -1,0 +1,10 @@
+<div class="logo">
+    <h4 class="title">Ticket Management System</h4>
+  </div>
+  <div class="user">
+    <div class="welcome" *ngIf="authService.authenticated && authService.currentUser">Welcome, {{authService.currentUser.name}}</div>
+    <a (click)="authService.logout()" *ngIf="authService.authenticated">Logout</a>
+  </div>
+<nav>
+    <app-nav></app-nav>
+</nav>

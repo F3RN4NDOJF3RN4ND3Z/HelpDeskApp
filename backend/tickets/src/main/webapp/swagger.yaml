@@ -1,0 +1,9 @@
+---
+swagger: "2.0"
+info:
+  version: "v1"
+  title: "Tickets API For HelpDeskSystem"
+host: "localhost:8080"
+basePath: "/resources"
+schemes:
+- "http"

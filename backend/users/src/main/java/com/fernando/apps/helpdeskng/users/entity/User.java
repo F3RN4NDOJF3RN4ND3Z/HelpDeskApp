@@ -1,10 +1,13 @@
 package com.fernando.apps.helpdeskng.users.entity;
 
 import java.util.Date;
+import javax.persistence.Embedded;
 
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,11 +26,22 @@ public class User {
     private Long id;
     @NotNull
     private String name;
-    Long role;
+    @Enumerated(EnumType.STRING)
+    ApplicationRoles role;
     Date createdDate;
+    @Embedded
+    private Credential credential;
+
+    public Credential getCredential() {
+        return credential;
+    }
+
+    public void setCredential(Credential credential) {
+        this.credential = credential;
+    }
     public User(){}
 
-    public User(Long id, String name, Long role){
+    public User(Long id, String name, ApplicationRoles role){
         this.id=id;
         this.name=name;
         this.role=role;
@@ -65,14 +79,14 @@ public class User {
     /**
      * @return the role
      */
-    public Long getRole() {
+    public ApplicationRoles getRole() {
         return role;
     }
 
     /**
      * @param role the role to set
      */
-    public void setRole(Long role) {
+    public void setRole(ApplicationRoles role) {
         this.role = role;
     }
 

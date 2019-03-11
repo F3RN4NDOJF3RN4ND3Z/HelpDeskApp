@@ -1,0 +1,10 @@
+com\fernando\apps\helpdeskng\util\ErrorMessages.class
+com\fernando\apps\helpdeskng\tickets\boundary\TicketResource.class
+com\fernando\apps\helpdeskng\tickets\JaxrsActivator.class
+com\fernando\apps\helpdeskng\tickets\entity\User.class
+com\fernando\apps\helpdeskng\tickets\entity\Category.class
+com\fernando\apps\helpdeskng\tickets\entity\Comment.class
+com\fernando\apps\helpdeskng\tickets\entity\Status.class
+com\fernando\apps\helpdeskng\tickets\entity\Ticket.class
+com\fernando\apps\helpdeskng\tickets\boundary\TicketService.class
+com\fernando\apps\helpdeskng\tickets\entity\Organization.class

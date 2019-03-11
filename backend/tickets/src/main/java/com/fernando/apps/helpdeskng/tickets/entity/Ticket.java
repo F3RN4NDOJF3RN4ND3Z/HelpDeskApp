@@ -6,10 +6,12 @@ import java.util.List;
 import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -29,14 +31,15 @@ public class Ticket {
     private Long id;
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="categoryId")
+    @JoinColumn(name ="id")
     private Category category;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="organizationId")
+    @JoinColumn(name="id")
     private Organization organization;
-    Long status;
+    @Enumerated
+    Status status;
     @JsonbTransient
-    @OneToMany(mappedBy = "ticketId")
+    @OneToMany(mappedBy = "id")
     private List <Comment> comments;
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="userId")
@@ -116,14 +119,14 @@ public class Ticket {
     /**
      * @return the status
      */
-    public Long getStatus() {
+    public Status getStatus() {
         return status;
     }
 
     /**
      * @param status the status to set
      */
-    public void setStatus(Long status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

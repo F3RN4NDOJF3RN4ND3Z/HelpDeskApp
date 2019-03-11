@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @Table(name  ="organizations")
 public class Organization {
 
+    @Id
     Long id;
     String name;
 }

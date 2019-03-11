@@ -1,0 +1,27 @@
+<div>
+    <table class="table table-hover table-striped">
+        <thead>
+              <td>User</td>
+              <td>Date</td>
+              <td>Comment</td>
+        </thead>
+        
+        <tbody>
+          <tr *ngFor="let comment of comments">
+            <td>{{ comment.user }}</td>
+            <td>{{ comment.added_date |date: 'dd-MMM-yy'}} </td>
+            <td>{{ comment.comment}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <form class="form-inline" (ngSubmit)="onSave(taskForm)"
+         #CommentForm="ngForm"> 
+        <div>
+            <textarea name="comment" cols="40" rows="5" ngModel></textarea>
+        </div>
+        <button (click)="addComment()">
+            Add Comment
+        </button>
+      </form>
+</div>
