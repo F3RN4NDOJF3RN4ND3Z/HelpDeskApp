@@ -28,17 +28,16 @@ public class Ticket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long userId;
-    private Long categoryId;
-    private Long organizationId;
+    private long id;
+    private long userId;
+    private long organizationId;
     private String description;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoryId",insertable=false,updatable=false)
+    //@ManyToOne(cascade = CascadeType.ALL)
+   // @JoinColumn(name = "categoryId",insertable=false,updatable=false)
     @Enumerated
     private Category category;
-    @ManyToOne(cascade = CascadeType.ALL)
-    /*@JoinColumn(name = "organizationId",insertable=false,updatable=false)
+    /*@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "organizationId",insertable=false,updatable=false)
     private Organization organization;*/
     @Enumerated
     Status status;
@@ -69,19 +68,7 @@ public class Ticket {
         this.organizationId = organizationId;
     }
 
-    /**
-     * @return the categoryId
-     */
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    /**
-     * @param categoryId the categoryId to set
-     */
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
+ 
 
     /**
      * @return the userId

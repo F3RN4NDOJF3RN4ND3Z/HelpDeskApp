@@ -56,9 +56,9 @@ public class TicketServiceTest {
         JsonObject ticket = Json.createObjectBuilder()
                 .add("description", "Prueba")
                 .add("status",Status.OPEN.toString())
-                .add("userId",1)
-	        .add("categoryId",Category.IMPORTANT.toString())
-	        .add("organizationId",1)
+                .add("userId",1L)
+	        .add("category",Category.IMPORTANT.toString())
+	        .add("organizationId",1L)
 	        .add("createdDate",text)
                 .build();
 

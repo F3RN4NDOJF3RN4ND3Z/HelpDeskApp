@@ -11,7 +11,7 @@ export class LoguinComponent implements OnInit {
 
 
   name:String;
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -19,6 +19,7 @@ export class LoguinComponent implements OnInit {
 
   onSave(userForm: NgForm) {
     console.log(userForm.valid);
+    
     //let newUser = new User(this.name, this.user.phone);
     //this.users.push(newUser);    
  }

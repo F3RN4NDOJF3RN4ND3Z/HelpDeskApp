@@ -20,9 +20,9 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
-    private Long userId;
-    private Long ticketId;
+    private long id;
+    private long userId;
+    private long ticketId;
     /*@ManyToOne(cascade = CascadeType.ALL)
     /@JoinColumn(name = "userId",insertable=false,updatable=false)
     private User user;*/

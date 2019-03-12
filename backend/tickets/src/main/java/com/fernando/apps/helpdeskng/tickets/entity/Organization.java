@@ -8,7 +8,7 @@ import java.io.Serializable;
  */
 
 public class Organization {
-    Long id;
+    long id;
     String name;
     public Organization(){}
 
