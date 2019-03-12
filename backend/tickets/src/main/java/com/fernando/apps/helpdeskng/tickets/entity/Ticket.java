@@ -29,32 +29,80 @@ public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Long userId;
+    private Long categoryId;
+    private Long organizationId;
     private String description;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="id")
+    @JoinColumn(name = "categoryId",insertable=false,updatable=false)
+    @Enumerated
     private Category category;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
-    private Organization organization;
+    /*@JoinColumn(name = "organizationId",insertable=false,updatable=false)
+    private Organization organization;*/
     @Enumerated
     Status status;
-    @JsonbTransient
-    @OneToMany(mappedBy = "id")
-    private List <Comment> comments;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="userId")
-    User createdBy;
+    //@JsonbTransient
+    @OneToMany(mappedBy = "ticket",cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticketId")
+    private List<Comment> comments;
+    /*@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId",  insertable=false,updatable=false)
+    User createdBy;*/
     Date createdDate;
     Date updatedDate;
 
-    public Ticket (){}
+    public Ticket() {
+    }
 
-    public Ticket(Long id, String description, Category category, Organization organization , User createdBy){
+    /**
+     * @return the organizationId
+     */
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    /**
+     * @param organizationId the organizationId to set
+     */
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    /**
+     * @return the categoryId
+     */
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    /**
+     * @param categoryId the categoryId to set
+     */
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    public Ticket(Long id, String description, Category category, Long organization, Long createdBy) {
         this.id=id;
         this.description=description;
         this.category=category;
-        this.organization=organization;
-        this.createdBy=createdBy;
+        this.organizationId=organization;
+        this.userId=createdBy;
         this.createdDate=new Date();
         //this.status="";
 
@@ -102,19 +150,7 @@ public class Ticket {
         this.category = category;
     }
 
-    /**
-     * @return the organization
-     */
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    /**
-     * @param organization the organization to set
-     */
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
+   
 
     /**
      * @return the status
@@ -130,19 +166,6 @@ public class Ticket {
         this.status = status;
     }
 
-    /**
-     * @return the createdBy
-     */
-    public User getCreatedBy() {
-        return createdBy;
-    }
-
-    /**
-     * @param createdBy the createdBy to set
-     */
-    public void setCreatedBy(User createdBy) {
-        this.createdBy = createdBy;
-    }
 
     /**
      * @return the createdDate

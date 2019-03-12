@@ -1,37 +1,42 @@
 package com.fernando.apps.helpdeskng.tickets.entity;
 
 import java.io.Serializable;
-import java.util.List;
 
-import javax.json.bind.annotation.JsonbTransient;
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
+
 
 /**
  * User
  */
-@Entity
-@Table(name= "users")
-public class User implements Serializable {
-    @Id
+
+public class User {
     private Long id;
-    @NotNull
     private String name;
-    @JsonbTransient
-    @OneToMany(mappedBy = "userId")
+    private Long organizationId;
+    /*@JsonbTransient
+    @OneToMany(mappedBy = "createdBy")
     private List<Ticket> tickets;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name ="organizationId")
-    private Organization organization;
-    public User(){}
+    @JoinColumn(name = "organizationId",insertable=false,updatable=false)
+    private Organization organization;*/
 
-    public User(Long id,String name){
+    public User() {
+    }
+
+    /**
+     * @return the organizationId
+     */
+    public Long getOrganizationId() {
+        return organizationId;
+    }
+
+    /**
+     * @param organizationId the organizationId to set
+     */
+    public void setOrganizationId(Long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public User(Long id, String name) {
         this.id=id;
         this.name=name;
     }
@@ -64,33 +69,8 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    /**
-     * @return the tickets
-     */
-    public List<Ticket> getTickets() {
-        return tickets;
-    }
+  
 
-    /**
-     * @param tickets the tickets to set
-     */
-    public void setTickets(List<Ticket> tickets) {
-        this.tickets = tickets;
-    }
-
-    /**
-     * @return the organization
-     */
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    /**
-     * @param organization the organization to set
-     */
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
 
     
 }

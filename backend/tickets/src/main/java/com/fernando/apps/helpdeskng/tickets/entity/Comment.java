@@ -21,12 +21,14 @@ public class Comment {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="userId")
-    private User user;
+    private Long userId;
+    private Long ticketId;
+    /*@ManyToOne(cascade = CascadeType.ALL)
+    /@JoinColumn(name = "userId",insertable=false,updatable=false)
+    private User user;*/
     private String comment;
-    @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="ticketId")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ticketId",insertable=false,updatable=false)
     private Ticket ticket;
     private Date cretedDate;
 
@@ -38,26 +40,41 @@ public class Comment {
     }
 
     /**
+     * @return the ticketId
+     */
+    public Long getTicketId() {
+        return ticketId;
+    }
+
+    /**
+     * @param ticketId the ticketId to set
+     */
+    public void setTicketId(Long ticketId) {
+        this.ticketId = ticketId;
+    }
+
+    /**
+     * @return the userId
+     */
+    public Long getUserId() {
+        return userId;
+    }
+
+    /**
+     * @param userId the userId to set
+     */
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
+    /**
      * @param id the id to set
      */
     public void setId(Long id) {
         this.id = id;
     }
 
-    /**
-     * @return the user
-     */
-    public User getUser() {
-        return user;
-    }
-
-    /**
-     * @param user the user to set
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
-
+    
     /**
      * @return the comment
      */

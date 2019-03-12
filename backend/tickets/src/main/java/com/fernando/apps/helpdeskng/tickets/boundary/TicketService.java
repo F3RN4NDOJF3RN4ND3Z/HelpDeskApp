@@ -26,7 +26,9 @@ public class TicketService {
     }
 
     public void add(@Valid Ticket newTicket){
+        
         em.persist(newTicket);
+        System.out.println("ticket agregado");
 
     }
 
